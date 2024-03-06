@@ -1,0 +1,304 @@
+  ### GET All users:
+GET http://localhost:8080/users
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlzQnVzaW5lc3MiOnRydWUsImlzQWRtaW4iOnRydWUsImlhdCI6MTcwNDU1MTk0OH0.I_AKWHioPcOsZTfUt_oJzynTtDARY8cUsEngEweYT9M
+
+
+### Get user:
+GET http://localhost:8080/users/65bfc12f2cf9e97d71983ea4
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlzQnVzaW5lc3MiOnRydWUsImlzQWRtaW4iOnRydWUsImlhdCI6MTcwNDU1MTk0OH0.I_AKWHioPcOsZTfUt_oJzynTtDARY8cUsEngEweYT9M
+
+
+### DELETE  user:
+DELETE http://localhost:8080/users/65bfc2212cf9e97d71983f29
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlzQnVzaW5lc3MiOnRydWUsImlzQWRtaW4iOnRydWUsImlhdCI6MTcwNDU1MTk0OH0.I_AKWHioPcOsZTfUt_oJzynTtDARY8cUsEngEweYT9M
+
+
+### Add a user
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "email": "hani_xl1@hotmail.com",
+  "name": {
+    "first": "daniel",
+    "last": "madi"
+  },
+  "address": {
+    "street": "123 Main St",
+    "city": "Anytown",
+    "state": "ExampleState", 
+    "country": "Israel",
+    "houseNumber": 20,
+    "zip": "12345"
+  },
+  "image": {
+    "alt": "user-profile",
+    "url": "https://picsum.photos/200/300"
+  },
+  "phone": "0508123090",
+  "isBusiness": true,
+  "isAdmin": false,
+  "password": "Aa123456!!"
+}
+
+
+### POST request to verify a user
+POST http://localhost:8080/users/verify
+Content-Type: application/json
+
+{
+  "verificationCode": "WugjbE"
+}
+
+### Request a new verification code
+POST http://localhost:8080/users/request-new-code
+Content-Type: application/json
+
+{
+  "email": "admin@gmail.com"  
+}
+
+
+
+
+###Edit Profile
+PUT  http://localhost:8080/users/65bd028c5dc9c2a0f3c7df5a
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlzQnVzaW5lc3MiOnRydWUsImlzQWRtaW4iOnRydWUsImlhdCI6MTcwNDU1MTk0OH0.I_AKWHioPcOsZTfUt_oJzynTtDARY8cUsEngEweYT9M
+Content-Type: application/json
+
+{
+  "name": {
+    "first": "Willis",
+    "last": "gonen"
+  },
+  "address": {
+    "street": "123 Main St",
+    "city": "Anytown",
+    "country": "Israel",
+    "houseNumber": 69,
+    "zip": "123456"
+  },
+  "image": {
+    "alt": "user-profile",
+    "url": "https://picsum.photos/200/300"
+  },
+  "phone": "050-8123090",
+  "email": "hani_xl@gmail.com",
+  "isBusiness": true,
+  "isAdmin": false,
+  "password": "123456aA!" 
+}
+
+
+### Login:
+POST http://localhost:8080/users/login
+Content-Type: application/json
+
+{
+  "email": "hanilzx8@gmail.com",
+  "password": "123456aA!"
+}
+
+### Login:
+POST http://localhost:8080/users/login
+Content-Type: application/json
+
+{
+  "email": "admin@gmail.com",
+  "password": "Aa123456!!"
+}
+
+###Edit Status
+PATCH http://localhost:8080/users/6575ba245a440e0ca0aefa7b
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlzQnVzaW5lc3MiOnRydWUsImlzQWRtaW4iOnRydWUsImlhdCI6MTcwNDU1NTYyN30.JVf5Ki7jWz0yLPi3Robw4tUECZpEuQjKBrIMicvb4Yw
+Content-Type: application/json
+
+{
+  "isBusiness": true
+}
+
+//These are examples with users who will try to do things like delete or edit other users and more..
+
+### get Wayne by id with JWT of Willis:
+GET http://localhost:8080/users/65a560bbeacbcc903f7bb0e0
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IldpbGxpQGJhdGNhdmUuY29tIiwiaWQiOiI2NWE1NjI1ZGVhY2JjYzkwM2Y3YmIxMjAiLCJpc0J1c2luZXNzIjpmYWxzZSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcwNTMzODk5NX0.IFqJJPuXzicWPsT_Jc3no9mfL62LN1J6E8-9yDvkGuc
+
+
+### GET Willis by id with jwt of Willis
+GET http://localhost:8080/users/65a560bbeacbcc903f7bb0e0
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IldpbGxpQGJhdGNhdmUuY29tIiwiaWQiOiI2NWE1NjI1ZGVhY2JjYzkwM2Y3YmIxMjAiLCJpc0J1c2luZXNzIjpmYWxzZSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcwNTMzODk5NX0.IFqJJPuXzicWPsT_Jc3no9mfL62LN1J6E8-9yDvkGuc
+
+
+### GET Wayne with JWT of admin:
+GET http://localhost:8080/users/65a560bbeacbcc903f7bb0e0
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IldpbGxpQGJhdGNhdmUuY29tIiwiaWQiOiI2NWE1NjI1ZGVhY2JjYzkwM2Y3YmIxMjAiLCJpc0J1c2luZXNzIjpmYWxzZSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcwNTMzODk5NX0.IFqJJPuXzicWPsT_Jc3no9mfL62LN1J6E8-9yDvkGuc
+
+
+### PUT Bruce Wayne with JWT of Wayne:
+PUT http://localhost:8080/users/65a560bbeacbcc903f7bb0e0
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IldpbGxpQGJhdGNhdmUuY29tIiwiaWQiOiI2NWE1NjI1ZGVhY2JjYzkwM2Y3YmIxMjAiLCJpc0J1c2luZXNzIjpmYWxzZSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcwNTMzNzQ0NH0.k73FcpEBN1J8BajjHXLMPneRiV1b3X2S-vJfXB8kZy4
+Content-Type: application/json
+
+{
+  "name": {
+    "first": "Bruce!!!",
+    "last": "Wayne!!!"
+  },
+  "address": {
+    "street": "123 Main St",
+    "city": "Anytown",
+    "country": "Israel",
+    "houseNumber": 20,
+    "zip": "12345"
+  },
+  "images": {
+    "alt": "user-profile",
+    "url": "https://picsum.photos/200/300"
+  },
+  "phone": "050-8123091",
+  "email": "Willis@batcave.com",
+  "isBusiness": true,
+  "password": "123456aA!" 
+}
+
+### DELETE Bruce Wayne with JWT of Wayne:
+DELETE http://localhost:8080/users/65a560bbeacbcc903f7bb0e0
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IldpbGxpQGJhdGNhdmUuY29tIiwiaWQiOiI2NWE1NjI1ZGVhY2JjYzkwM2Y3YmIxMjAiLCJpc0J1c2luZXNzIjpmYWxzZSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcwNTMzNzQ0NH0.k73FcpEBN1J8BajjHXLMPneRiV1b3X2S-vJfXB8kZy4
+Content-Type: application/json
+//--------------------------------------------------------------
+
+
+### add a card: ### new card
+POST http://localhost:8080/cards
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjoiNjViYmYyZGJlN2M3ODkzOGRhNWEwY2FlIiwiaXNCdXNpbmVzcyI6ZmFsc2UsImlzQWRtaW4iOnRydWUsImlhdCI6MTcwNjgxNjU3M30.hNbU-XFGKtkGvHdkMLAZ8tz2aSolwqT-Oqp9r7sfsXk
+Content-Type: application/json
+
+{
+  "title": "Card G122",
+  "subtitle": "Card Subtitle",
+  "description": "Card Description",
+  "brand":"Apple",
+  "price": "10.99",
+  "shipping": "5.00",
+  "images": [
+    {
+      "url": "https://m.media-amazon.com/images/I/71zRpbDLNLL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+      "alt": "Image 1 Alt Text"
+    },
+    {
+      "url": "https://m.media-amazon.com/images/I/61d+X4yl22L._AC_SX679_.jpg",
+      "alt": "Image 1 Alt Text"
+    }
+  ]
+}
+
+
+### Edit a Card
+PUT http://localhost:8080/cards/65bcdb1ce2c4363217b79f8b
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjoiNjU5YmZjMGY2M2IzZGJhMDBkYjI2ZTYxIiwiaXNCdXNpbmVzcyI6dHJ1ZSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzA1MzQxMzA0fQ.TS7bFTMV5nKx_IJsYC5Vbym0eWbpM9klIYPPLAlPzvY
+Content-Type: application/json
+
+{
+ "title": "Card Title",
+  "subtitle": "Card Subtitle",
+  "description": "Card Description",
+  "brand":"Apple",
+  "price": "10.99",
+  "shipping": "5.00",
+  "images": [
+    {
+      "url": "https://m.media-amazon.com/images/I/71zRpbDLNLL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+      "alt": "Image 1 Alt Text"
+    },
+    {
+      "url": "https://m.media-amazon.com/images/I/61d+X4yl22L._AC_SX679_.jpg",
+      "alt": "Image 1 Alt Text"
+    }
+  ]
+}
+
+### Get all cards:
+GET http://localhost:8080/cards
+
+### Get my-cards:
+GET http://localhost:8080/cards/my-cards
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTcwMjk3NDMxNH0.9rxSVJKljg9si33a7qNMz-5wunk0CfmW7tjDLAQr8nk
+
+
+### GET Card by id:
+GET http://localhost:8080/cards/65ca5483379651fb7e8db325
+
+### Delete a Card
+DELETE http://localhost:8080/cards/6599772e88a27ad9a5e21f33
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjoiNjU5YmZjMGY2M2IzZGJhMDBkYjI2ZTYxIiwiaXNCdXNpbmVzcyI6dHJ1ZSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzA1MTU1ODQzfQ.PHJnLTQXYqC4nqT0CLQ-0egJOzlJS_WZLmshQ2RlqG8
+
+### Request to Like a Card
+PATCH http://localhost:8080/cards/65ca549c379651fb7e8db34f
+Content-Type: application/json 
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjoiNjU5YmZjMGY2M2IzZGJhMDBkYjI2ZTYxIiwiaXNCdXNpbmVzcyI6dHJ1ZSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzA1MTU1ODQzfQ.PHJnLTQXYqC4nqT0CLQ-0egJOzlJS_WZLmshQ2RlqG8
+
+{
+  "userId": "6599661d036ae1da45e585c7"
+}
+
+
+
+
+
+
+###forgot password
+POST http://localhost:8080/users/forgot-password
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjoiNjU5YmZjMGY2M2IzZGJhMDBkYjI2ZTYxIiwiaXNCdXNpbmVzcyI6dHJ1ZSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzA1MTU2NzE1fQ.dtHaDafuEZju6wl086JuR2-cRwqT8LAyldKtCR3FODY
+
+ {
+  "email": "hanilzx8@gmail.com"
+}
+
+
+
+###Reset Password:
+POST  http://localhost:8080/users/reset-password/65c14231547ee120c28e9e24/1dd2d2db633870e4e2ab764ddafd92796d9674a1813f3d611639f1aeafba2e8c
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imhhbmlseng4QGdtYWlsLmNvbSIsImlkIjoiNjVjMTQyMzE1NDdlZTEyMGMyOGU5ZTI0IiwiaXNCdXNpbmVzcyI6dHJ1ZSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzA3MjUxMzM0fQ.3KLyL_QJSMaaYqCmIntgzOmnUKz9yYlSQ9BJt1NlafA
+
+{
+"password": "Aa123456!!"
+}
+
+
+### My Cart
+GET http://localhost:8080/cart/
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTcwMjk3NDMxNH0.9rxSVJKljg9si33a7qNMz-5wunk0CfmW7tjDLAQr8nk
+
+
+### Add to Cart
+POST http://localhost:8080/cart/65e5cd6e5a507d3e2f767ed4/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjoiNjU5YmZjMGY2M2IzZGJhMDBkYjI2ZTYxIiwiaXNCdXNpbmVzcyI6dHJ1ZSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzA1MTU2NzE1fQ.dtHaDafuEZju6wl086JuR2-cRwqT8LAyldKtCR3FODY
+
+{
+  "quantity": 1
+}
+
+
+### Empty Cart
+DELETE http://localhost:8080/cart/65e58124dd609ecea4b0cc0d/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjoiNjU5YmZjMGY2M2IzZGJhMDBkYjI2ZTYxIiwiaXNCdXNpbmVzcyI6dHJ1ZSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzA1MTU2NzE1fQ.dtHaDafuEZju6wl086JuR2-cRwqT8LAyldKtCR3FODY
+
+
+
+### Order confirmation:
+POST http://localhost:8080/users/order-confirmation
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjoiNjU5YmZjMGY2M2IzZGJhMDBkYjI2ZTYxIiwiaXNCdXNpbmVzcyI6dHJ1ZSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzA1MTU2NzE1fQ.dtHaDafuEZju6wl086JuR2-cRwqT8LAyldKtCR3FODY
+
+
+{
+  "userEmail": "hanilzx8@gmail.com",
+  "orderedCardIds": [ "65e5cd6e5a507d3e2f767ed4", "65e5d3c04940667cedf7c478"  ]
+}
+
+
+
