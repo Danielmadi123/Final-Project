@@ -357,72 +357,74 @@ router.post("/forgot-password", async (req, res) => {
 
 router.post("/forgot-password", async (req, res) => {
   try {
-    const { email } = req.body;
+    const schema = Joi.object({ email: Joi.string().email().required() });
+    const { error } = schema.validate(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
 
-    if (!email) {
-      return res.status(400).json({ error: "Email is required" });
+    const user = await User.findOne({ email: req.body.email });
+    if (!user)
+      return res.status(400).send("User with given email doesn't exist");
+
+    let token = await Token.findOne({ userId: user._id });
+    if (!token) {
+      token = await new Token({
+        userId: user._id,
+        token: crypto.randomBytes(32).toString("hex"),
+      }).save();
     }
 
-    const user = await User.findOne({ email });
+    const resetLink = `http://localhost:3000/Reset-password/${user._id}/${token.token}`;
 
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
+    const emailSubject = "Password Reset";
+    const emailBody = `Click the following link to reset your password: ${resetLink}`;
 
-    const verificationCode = generateVerificationCode(6);
+    await sendEmail(user._id, user.email, emailSubject, emailBody);
 
-    user.verificationCode = verificationCode;
-    await user.save();
-
-    const verificationEmailSubject = "Password Reset Verification Code";
-    const verificationEmailText = `Your password reset verification code is: ${verificationCode}. Use this code along with your user ID to reset your password.`;
-
-    await sendEmail(
-      user._id,
-      user.email,
-      verificationEmailSubject,
-      verificationEmailText
-    );
-
-    return res
-      .status(200)
-      .json({ message: "Verification code sent successfully" });
+    res.send("Password reset link sent to your email account");
   } catch (error) {
-    console.error("Error sending verification code:", error);
-    return res.status(500).json({ error: "Internal server error" });
+    Logger.error("An error occurred:", error);
+    res.status(500).send("An error occurred");
   }
 });
 
 router.post("/reset-password/:userId/:token", async (req, res) => {
   try {
     const { userId, token } = req.params;
+    const { password } = req.body;
+
+    Logger.log("Received Reset Password Request:", { userId, token });
 
     const user = await User.findById(userId);
 
     if (!user) {
+      Logger.error("Invalid user ID:", userId);
       return res.status(400).json({ error: "Invalid link or expired" });
     }
 
-    const tokenRecord = await Token.findOne({ userId, token });
+    const tokenRecord = await Token.findOne({ token });
 
     if (!tokenRecord) {
+      Logger.error("Invalid token:", token);
       return res.status(400).json({ error: "Invalid link or expired" });
     }
 
     if (tokenRecord.expiresAt < new Date()) {
+      Logger.error("Token has expired:", tokenRecord.expiresAt);
+      await tokenRecord.deleteOne();
       return res.status(400).json({ error: "Token has expired" });
     }
 
-    const hash = await bcrypt.hash(req.body.password, 10);
-
+    const hash = await bcrypt.hash(password, 10);
     user.password = hash;
     await user.save();
+
+    Logger.log("Password Reset Successful");
 
     await tokenRecord.deleteOne();
 
     return res.status(200).json({ message: "Password reset successful" });
   } catch (error) {
-    console.error("Error resetting password:", error);
+    Logger.error("Error resetting password:", error);
     return res.status(500).json({ error: "Internal server error" });
   }
 });
