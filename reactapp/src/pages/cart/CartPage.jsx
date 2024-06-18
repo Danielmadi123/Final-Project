@@ -107,27 +107,31 @@ const CartPage = () => {
     }
   };
 
-  const onUpdateCartItem = async (_id, newQuantity) => {
-    try {
-      if (!Number.isInteger(newQuantity) || newQuantity <= 0) {
-        throw new Error("Invalid quantity provided");
-      }
-
-      const token = localStorage.getItem("token");
-      await axios.put(
-        `http://localhost:8080/cart/item/${_id}`,
-        { newQuantity },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      fetchCart();
-    } catch (error) {
-      console.error("Error updating cart item:", error);
-      setErrorMessage(error.message || "Failed to update cart item.");
+const onUpdateCartItem = async (_id, newQuantity) => {
+  try {
+    if (!Number.isInteger(newQuantity) || newQuantity <= 0) {
+      throw new Error("Invalid quantity provided");
     }
-  };
+
+    const token = localStorage.getItem("token");
+    const response = await axios.put(
+      `http://localhost:8080/cart/item/${_id}`,
+      { newQuantity },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+
+    if (response.status === 200) {
+      dispatch(setItems(response.data.items)); 
+    } else {
+      setErrorMessage("Failed to update cart item.");
+    }
+  } catch (error) {
+    console.error("Error updating cart item:", error);
+    setErrorMessage(error.message || "Failed to update cart item.");
+  }
+};
 
   const saveItemForLater = async (itemId) => {
     try {
